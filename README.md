@@ -1,24 +1,49 @@
-# README
+## usersテーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column             | Type       | Options                           |
+| ------             | ---------- | ----------------------------------|
+| email              | string     | null: false, unique: true         |
+| encrypted_password | string     | null: false                       |
+| nickname           | string     | null: false  unique: true         |
 
-Things you may want to cover:
+### Association
+- has_many :items
+- has_many :orders
 
-* Ruby version
+## itemsテーブル
 
-* System dependencies
+| Column             | Type       | Options                           |
+| ------             | ---------- | ----------------------------------|
+| name               | string     | null: false                       |
+| category           | string     | null: false                       |
+| price              | integer    | null: false                       |
+| user_id            | references | null: false,  foreign_key: true   |
 
-* Configuration
+### Association
+- belongs_to :user
+- has_one :order
 
-* Database creation
+## ordersテーブル
 
-* Database initialization
+| Column             | Type       | Options                           |
+| ------             | ---------- | ----------------------------------|
+| user_id            | references | null: false,  foreign_key: true   |
+| item_id            | references | null: false,  foreign_key: true   |
 
-* How to run the test suite
+### Association
+- belongs_to :user
+- belongs_to :items
+- has_one :delivery
 
-* Services (job queues, cache servers, search engines, etc.)
+## deliverysテーブル
 
-* Deployment instructions
+| Column             | Type       | Options                           |
+| ------             | ---------- | ----------------------------------|
+| city               | string     | null: false.                      |
+| block              | string     | null: false                       |
+| building           | string     | null: false                       |
+| phone_number       | string     | null: false                       |
+| order_id           | references | null: false,  foreign_key: true   |
 
-* ...
+### Association
+- belongs_to :order
