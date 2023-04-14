@@ -42,7 +42,7 @@ RSpec.describe OrderForm, type: :model do
         @order_form.building = nil
         expect(@order_form).to be_valid
       end
-      it '電話番号が11番桁以内かつハイフンなしであれば保存できる' do
+      it '電話番号が11桁以内かつハイフンなしであれば保存できる' do
         @order_form.phone_number = 12345678912
         expect(@order_form).to be_valid
       end
@@ -101,6 +101,11 @@ RSpec.describe OrderForm, type: :model do
       end
       it '電話番号が12桁以上あると保存できない' do
         @order_form.phone_number = 123456789123456
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include('Phone number is invalid')
+      end
+      it '電話番号が10桁以下あると保存できない' do
+        @order_form.phone_number = 1234567
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include('Phone number is invalid')
       end
