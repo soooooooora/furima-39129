@@ -18,16 +18,18 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:order_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone_number,).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def set_order
     @item = Item.find(params[:item_id])
-    redirect_to root_path if current_user.id == @item.user_id
+    if  current_user.id == @item.user.id || @item.order.present?
+      redirect_to root_path
+    end
   end
 
   def pay_item
-    Payjp.api_key = ENV[sk_test_641e37eacb9379c71884795e]
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
       card: order_params[:token],
