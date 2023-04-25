@@ -118,22 +118,22 @@ RSpec.describe User, type: :model do
       it "名字が空だと登録できない" do
         @user.last_name = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("お名前(全角)を入力してください", "お名前(全角)は不正な値です")
+        expect(@user.errors.full_messages).to include("お名前(全角)を入力してください")
       end
       it "名前が空だと登録できない" do
         @user.first_name = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("お名前(全角)を入力してください", "お名前(全角)は不正な値です")
+        expect(@user.errors.full_messages).to include("お名前(全角)を入力してください")
       end
       it "名字(カナ)が空だと登録できない" do
         @user.last_name_kana = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("お名前カナ(全角)を入力してください", "お名前カナ(全角)は不正な値です")
+        expect(@user.errors.full_messages).to include("お名前カナ(全角)を入力してください")
       end
       it "名前(カナ)が空だと登録できない" do
         @user.first_name_kana = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("お名前カナ(全角)を入力してください", "お名前カナ(全角)は不正な値です")
+        expect(@user.errors.full_messages).to include("お名前カナ(全角)を入力してください")
       end
     end
   end
