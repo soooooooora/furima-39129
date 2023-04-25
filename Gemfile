@@ -73,3 +73,5 @@ gem 'net-http'
 gem 'payjp'
 
 gem 'pry-rails'
+
+gem 'rails-i18n'
